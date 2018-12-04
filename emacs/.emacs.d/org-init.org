@@ -1,0 +1,476 @@
+#STARTUP: OVERVIEW
+* About
+** Me
+   [[https://www.ntkomata.com][blog]]
+ #+BEGIN_SRC emacs-lisp
+       (setq user-mail-address	"odinfinch@protonmail.com"
+	     user-full-name	"Odin Finch")
+ #+END_SRC
+* General Settings
+#+BEGIN_SRC emacs-lisp
+  (setq save-interprogram-paste-before-kill t)
+  (global-linum-mode t)
+  (global-hl-line-mode t)
+  (menu-bar-mode 1)
+  (when (fboundp 'toggle-scroll-bar) (toggle-scroll-bar -1))
+  (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+  (when (file-readable-p "/bin/bash") (setq multi-term-program "/bin/bash"))
+  (when (file-readable-p "/bin/zsh")  (setq multi-term-program "/bin/zsh"))
+  (setq-default cursor-type 'bar)
+  (setq inhibit-startup-screen t)
+  (blink-cursor-mode 0)
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+  (defalias 'list-buffers 'ibuffer)
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (global-set-key (kbd "<f12>") 'revert-buffer)
+#+END_SRC
+** open config file
+   - init.el ESC-ESC-i 
+   - org-init.org ESC-ESC-o
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key (kbd "\e\ei")
+		     (lambda ()
+		       (interactive) (find-file "~/.emacs.d/init.el")))
+     (global-set-key (kbd "\e\eo")
+		     (lambda ()
+		       (interactive) (find-file "~/.emacs.d/org-init.org")))
+   #+END_SRC
+* Load local files
+#+BEGIN_SRC emacs-lisp
+  (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
+#+END_SRC
+* Packages and their settings
+** atomic-chrome
+ This will let you edit textareas in chrome
+ (need to install the chrome extension!).
+ #+BEGIN_SRC emacs-lisp
+   (use-package atomic-chrome
+     :config (atomic-chrome-start-server))
+   (setq atomic-chrome-buffer-open-style 'frame)
+ #+END_SRC
+** pcre for elisp
+ #+BEGIN_SRC emacs-lisp
+   (use-package pcre2el
+     :config
+     (pcre-mode)
+     )
+ #+END_SRC
+** dired
+ #+BEGIN_SRC emacs-lisp
+   (use-package all-the-icons)
+   (use-package all-the-icons-dired)
+ #+END_SRC
+** treemacs
+ #+BEGIN_SRC emacs-lisp
+   (use-package treemacs
+     :ensure t
+     :defer t
+     :init
+     (with-eval-after-load 'winum
+       (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+     :config
+     (progn
+       (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+	     treemacs-deferred-git-apply-delay   0.5
+	     treemacs-display-in-side-window     t
+	     treemacs-file-event-delay           5000
+	     treemacs-file-follow-delay          0.2
+	     treemacs-follow-after-init          t
+	     treemacs-follow-recenter-distance   0.1
+	     treemacs-git-command-pipe           ""
+	     treemacs-goto-tag-strategy          'refetch-index
+	     treemacs-indentation                2
+	     treemacs-indentation-string         " "
+	     treemacs-is-never-other-window      nil
+	     treemacs-max-git-entries            5000
+	     treemacs-no-png-images              nil
+	     treemacs-no-delete-other-windows    t
+	     treemacs-project-follow-cleanup     nil
+	     treemacs-persist-file               (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+	     treemacs-recenter-after-file-follow nil
+	     treemacs-recenter-after-tag-follow  nil
+	     treemacs-show-cursor                nil
+	     treemacs-show-hidden-files          t
+	     treemacs-silent-filewatch           nil
+	     treemacs-silent-refresh             nil
+	     treemacs-sorting                    'alphabetic-desc
+	     treemacs-space-between-root-nodes   t
+	     treemacs-tag-follow-cleanup         t
+	     treemacs-tag-follow-delay           1.5
+	     treemacs-width                      35)
+
+       ;; The default width and height of the icons is 22 pixels. If you are
+       ;; using a Hi-DPI display, uncomment this to double the icon size.
+       (treemacs-resize-icons 44)
+
+       (treemacs-follow-mode t)
+       (treemacs-filewatch-mode t)
+       (treemacs-fringe-indicator-mode t)
+       (pcase (cons (not (null (executable-find "git")))
+		    (not (null (executable-find "python3"))))
+	 (`(t . t)
+	  (treemacs-git-mode 'deferred))
+	 (`(t . _)
+	  (treemacs-git-mode 'simple))))
+     :bind
+     (:map global-map
+	   ("<f8>"        . treemacs)
+	   ("M-0"       . treemacs-select-window)
+	   ("C-x t 1"   . treemacs-delete-other-windows)
+	   ("C-x t t"   . treemacs)
+	   ("C-x t B"   . treemacs-bookmark)
+	   ("C-x t C-t" . treemacs-find-file)
+	   ("C-x t M-t" . treemacs-find-tag)))
+
+   (use-package treemacs-evil
+     :after treemacs evil
+     :ensure t)
+
+   (use-package treemacs-projectile
+     :after treemacs projectile
+     :ensure t)
+ #+END_SRC
+** prodigy
+ Prodigy runs an external service.
+ Run python nikola for local-hosted blog.
+ #+BEGIN_SRC emacs-lisp
+   (use-package prodigy)
+ #+END_SRC
+** projectile
+   #+BEGIN_SRC emacs-lisp
+     (use-package projectile
+       :config (progn
+		 (projectile-mode 1)
+		 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+		 ))
+   #+END_SRC
+** helm
+ #+BEGIN_SRC emacs-lisp
+     (use-package helm)
+     (use-package helm-swoop
+       :config (global-set-key (kbd "C-c C-s") 'helm-multi-swoop-all))
+     (require 'helm-config)
+     (global-set-key (kbd "M-x") 'helm-M-x)
+     (global-set-key (kbd "C-x C-f") 'helm-find-files)
+     (global-set-key (kbd "C-x b") 'helm-buffers-list)
+ #+END_SRC
+** dumb-jump
+   jump to definition. need Silver Searcher ag or ripgrep rg installed
+   #+BEGIN_SRC emacs-lisp
+
+	  (use-package dumb-jump
+	    :bind (("M-g o" . dumb-jump-go-other-window)
+		   ("M-g j" . dumb-jump-go)
+		   ("M-g i" . dumb-jump-go-prompt)
+		   ("M-g x" . dumb-jump-go-prefer-external)
+		   ("M-g z" . dumb-jump-go-prefer-external-other-window))
+	    :config (setq dumb-jump-selector 'helm)
+	    :init
+	    (dumb-jump-mode)
+	    :ensure)
+   #+END_SRC
+** elfeed
+ #+BEGIN_SRC emacs-lisp
+
+   (use-package elfeed
+     :config (progn
+	       (global-set-key (kbd "C-x w") 'elfeed)
+	       (setq elfeed-feeds
+		     '("http://nullprogram.com/feed/" 
+		       "http://planet.emacsen.org/atom.xml" 
+		       "http://lukesmith.xyz/rss.xml"))
+	       ))
+
+   (use-package elfeed-org
+     :config (progn
+	       (setq rmh-elfeed-org-files (list "~/emacs-externals/elfeed.org"))
+	       (elfeed-org)
+     ))
+ #+END_SRC
+
+ #+RESULTS:
+ : t
+
+** gnus
+ #+BEGIN_SRC emacs-lisp
+   (setq gnus-select-method '(nntp "news.gnus.org"))
+ #+END_SRC
+** org
+ #+BEGIN_SRC emacs-lisp
+   (custom-set-variables
+    '(org-directory "~/emacs-externals/org")
+    '(org-default-notes-file (concat org-directory "/notes.org"))
+    )
+ #+END_SRC
+** theme
+#+BEGIN_SRC emacs-lisp
+(use-package zenburn-theme
+  :config(load-theme 'zenburn t))
+#+END_SRC
+** elpy
+#+BEGIN_SRC emacs-lisp
+(use-package elpy
+  :config(progn (elpy-enable) 
+                 (setq python-shell-interpreter "python"
+      python-shell-interpreter-args "-i")
+                 (setq elpy-shell-use-project-root nil))
+)
+#+END_SRC
+** js2-mode
+ for javascript
+ #+BEGIN_SRC emacs-lisp
+   (use-package js2-mode
+     :config (progn
+	       (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+	       (add-hook 'js2-mode-hook #'js2-imenu-extras-mode)
+	       ))
+ #+END_SRC
+** nodejs-repl
+ #+BEGIN_SRC emacs-lisp
+   (defun nodejs-repl-config ()
+     (add-hook 'js-mode-hook
+	     (lambda ()
+	       (define-key js-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-expression)
+	       (define-key js-mode-map (kbd "C-c C-j") 'nodejs-repl-send-line)
+	       (define-key js-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
+	       (define-key js-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
+	       (define-key js-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl)))
+     )
+   (use-package nodejs-repl
+     :config (nodejs-repl-config))
+ #+END_SRC
+** yasnippet
+ Here it's configured seperately but it's installed with elpy
+ #+BEGIN_SRC emacs-lisp
+   (use-package yasnippet
+     :config (yas-global-mode 1))
+   (global-set-key [C-tab] 'yas-expand)
+
+
+ #+END_SRC
+ Snippets
+ #+BEGIN_SRC emacs-lisp
+   (use-package yasnippet-snippets)
+ #+END_SRC
+** iedit
+ bind to C-; (Multiple cursor editing)
+ #+BEGIN_SRC emacs-lisp
+   (use-package iedit)
+ #+END_SRC
+** counsel
+ #+BEGIN_SRC emacs-lisp
+   (use-package counsel
+     :bind
+     ("M-y" . counsel-yank-pop)
+     )
+ #+END_SRC
+** undo-tree
+ #+BEGIN_SRC emacs-lisp
+   (use-package undo-tree
+     :init (global-undo-tree-mode))
+ #+END_SRC
+** reveal.js(ox-reveal)
+ #+BEGIN_SRC emacs-lisp
+   (use-package ox-reveal
+     :ensure ox-reveal)
+   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/latest/")
+   (setq org-reveal-mathjax t)
+ #+END_SRC
+** auto-complete \ company
+ auto-complete
+ #+BEGIN_SRC emacs-lisp
+   ;; (use-package auto-complete		;
+   ;;   :config (progn
+   ;; 	    (ac-config-default)
+   ;; 	    (defun auto-complete-mode-maybe ()
+   ;; 	      "global AC"
+   ;; 	      (unless (minibufferp (current-buffer))
+   ;; 		(auto-complete-mode 1)))
+   ;; 	    (global-auto-complete-mode t)
+   ;; 	    ))
+ #+END_SRC
+ company
+ #+BEGIN_SRC emacs-lisp
+   (use-package company
+     :config (add-hook 'after-init-hook 'global-company-mode))
+   "company-tern for javascript"
+   (use-package company-tern
+     :config (progn
+	       (add-to-list 'company-backends 'company-tern)
+	       (add-hook 'js2-mode-hook (lambda ()
+					  (tern-mode)
+					  (company-mode)))
+	       ))
+ #+END_SRC
+** ace-window
+ #+BEGIN_SRC emacs-lisp
+     (use-package ace-window
+       :init
+       (progn
+	 (custom-set-faces '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+	 )
+       )
+   (defun ntkomata/ace-swap-invert ()
+     "swap window content instead of pos"
+     (interactive)
+     (ace-swap-window)
+     (aw-flip-window)
+     )
+   ; (global-set-key [remap other-window] 'ntkomata/ace-swap-invert) ;; This is now a bit of buggy!
+   (global-set-key [remap other-window] 'ace-window)
+ #+END_SRC
+** others
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :config
+    (global-set-key (kbd "C-=") 'er/expand-region))
+  (use-package hungry-delete
+    :config
+    (global-hungry-delete-mode))
+  (use-package tabbar
+    :config (tabbar-mode 1))
+  (use-package try)
+  (use-package which-key
+    :config (which-key-mode))
+  (use-package org-bullets
+    :config
+    (add-hook 'org-mode-hook 'org-bullets-mode))
+
+
+  (use-package multi-term)
+
+  (use-package magit)
+  (global-set-key (kbd "C-x g") 'magit-status)
+  (use-package zencoding-mode)
+  (use-package impatient-mode)
+  (use-package neotree)
+  (use-package avy
+    :bind ("M-s" . avy-goto-char))
+  (global-set-key [f5] 'zencoding-expand-line)
+  (add-hook 'sgml-mode-hook 'zencoding-mode)
+
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+
+
+#+END_SRC
+** paradox package list 
+ #+BEGIN_SRC emacs-lisp
+   (use-package paradox
+     :config (paradox-enable))
+ #+END_SRC 
+* Functions
+** hydra
+ #+BEGIN_SRC emacs-lisp
+   (use-package hydra)
+   (defhydra hydra-zoom (global-map "<f2>")
+     "zoom"
+     ("g" text-scale-increase "in")
+     ("l" text-scale-decrease "out"))
+
+ #+END_SRC
+** elfeed
+ #+BEGIN_SRC emacs-lisp
+   (defun elfeed-mark-all-as-read ()
+     (interactive)
+     (mark-whole-buffer)
+     (elfeed-search-untag-all-unread)
+     )
+   (defun ntkomata/elfeed-open ()
+     "load DB before elfeed opens"
+     (interactive)
+     (elfeed-db-load)
+     (elfeed)
+     (elfeed-search-update--force)
+     )
+
+ #+END_SRC
+** upgrade all packages
+ #+BEGIN_SRC emacs-lisp
+   (defun package-upgrade-all ()
+     "Upgrade all packages automatically without showing *Packages* buffer."
+     (interactive)
+     (package-refresh-contents)
+     (let (upgrades)
+       (cl-flet ((get-version (name where)
+		   (let ((pkg (cadr (assq name where))))
+		     (when pkg
+		       (package-desc-version pkg)))))
+	 (dolist (package (mapcar #'car package-alist))
+	   (let ((in-archive (get-version package package-archive-contents)))
+	     (when (and in-archive
+			(version-list-< (get-version package package-alist)
+					in-archive))
+	       (push (cadr (assq package package-archive-contents))
+		     upgrades)))))
+       (if upgrades
+	   (when (yes-or-no-p
+		  (message "Upgrade %d package%s (%s)? "
+			   (length upgrades)
+			   (if (= (length upgrades) 1) "" "s")
+			   (mapconcat #'package-desc-full-name upgrades ", ")))
+	     (save-window-excursion
+	       (dolist (package-desc upgrades)
+		 (let ((old-package (cadr (assq (package-desc-name package-desc)
+						package-alist))))
+		   (package-install package-desc)
+		   (package-delete  old-package)))))
+	 (message "All packages are up to date"))))
+ #+END_SRC
+** change theme(UNSTABLE COLOR AND FONT RENDERING!!)
+ light theme
+ #+BEGIN_SRC emacs-lisp
+   (defun light-theme ()
+     (interactive)
+     (load-theme 'leuven t))
+
+   (defun dark-theme()
+     (interactive)
+     (load-theme 'zenburn t))
+ #+END_SRC
+** http proxy
+ #+BEGIN_SRC emacs-lisp
+   (defun set-http-proxy (string)
+   (setq url-proxy-services
+      '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+	("http" . "localhost:1081")
+	("https" . "localhost:1081")))
+     )
+
+   (defun use-http-proxy ()
+     (interactive)
+   (setq url-proxy-services
+      '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+	("http" . "localhost:1081")
+	("https" . "localhost:1081")))
+     )
+   (defun dont-use-http-proxy ()
+      (interactive)
+   (setq url-proxy-services
+      '(("no_proxy" . "^\\(localhost\\|10\\..*\\|192\\.168\\..*\\)")
+	("http" . "")
+	("https" . "")))
+      )
+
+ #+END_SRC
+** image scaling
+ #+BEGIN_SRC emacs-lisp
+   (defun scale-image ()
+     "Scale the image by the same factor specified by the text scaling."
+     (image-transform-set-scale
+      (expt text-scale-mode-step
+	    text-scale-mode-amount)))
+
+   (defun scale-image-register-hook ()
+     "Register the image scaling hook."
+     (add-hook 'text-scale-mode-hook 'scale-image))
+
+   (add-hook 'image-mode-hook 'scale-image-register-hook)
+ #+END_SRC
+ 

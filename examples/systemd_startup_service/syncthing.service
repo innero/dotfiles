@@ -1,0 +1,12 @@
+[Unit]
+Description=Syncthing
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/syncthing
+User=ntkomata
+Environment="HOME=/home/ntkomata"
+
+[Install]
+WantedBy=graphical.target

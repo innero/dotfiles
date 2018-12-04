@@ -1,0 +1,8 @@
+#! /bin/python3.7
+openssl = '/usr/lib/python3.7/site-packages/shadowsocks/crypto/openssl.py'
+s = ''
+with open(openssl, 'r') as f:
+    s = f.read()
+    s = s.replace('EVP_CIPHER_CTX_cleanup', 'EVP_CIPHER_CTX_reset')
+with open(openssl, 'w') as f:
+    f.write(s)

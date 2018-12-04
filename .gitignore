@@ -1,0 +1,34 @@
+# EMACS
+history
+.cache
+projectile-bookmarks.eld
+emacs/.emacs.d/ntkomata-emacs/*
+!emacs/.emacs.d/ntkomata-emacs/.*
+emms
+org-init.html
+ac-comphist.dat
+.last-package-update-day
+*#*
+org-init.el
+cache/
+*~
+ido.last
+elpa
+session.*
+
+
+
+
+
+# atom
+atom/.atom/*
+!atom/.atom/init.coffee
+!atom/.atom/config.cson
+!atom/.atom/snippets.cson
+!atom/.atom/styles.less
+!atom/.atom/keymap.cson
+
+
+
+
+nohup.out

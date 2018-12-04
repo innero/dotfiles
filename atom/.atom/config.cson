@@ -1,0 +1,12 @@
+"*":
+  core:
+    projectHome: "~/github"
+    restorePreviousWindowsOnStart: "no"
+    telemetryConsent: "no"
+    uriHandlerRegistration: "always"
+  editor:
+    fontSize: 19
+  "exception-reporting":
+    userId: "d31d13e3-09fe-4acc-825b-68a69186fe1b"
+  welcome:
+    showOnStartup: false
