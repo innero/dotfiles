@@ -6,4 +6,4 @@ export WORKON_HOME=$HOME/.local/share/virtualenvs # so that pyvenv in emacs can 
 
 
 
-source .profile.local
+[ -f .profile.local ] && source .profile.local
