@@ -19,8 +19,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
 call plug#end()
 
-
-let mapleader =" "
+set textwidth=100
+set colorcolumn=+1
+let mapleader=" "
 
 " Some basics:
 	set nocompatible
