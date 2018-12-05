@@ -93,8 +93,8 @@ URxvt.keysym.Shift-Control-Down:  \033[1;6B
 URxvt.perl-ext-common:	default,resize-font
 URxvt.colorUL:		#4682B4
 !! resize-font
-URxvt.resize-font.smaller:	C-Down
-URxvt.resize-font.bigger:	C-Up
+URxvt.keysym.C-Down:     resize-font:smaller
+URxvt.keysym.C-Up:      resize-font:bigger
 
 ! Rxvt.perl-ext-common:             ...,clipboard
 ! URxvt.keysym.M-C-c:               perl:clipboard:copy
