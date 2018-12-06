@@ -39,6 +39,12 @@ alias getTime='date +%s'
 alias gl='git log --graph --oneline --decorate'
 alias ls='ls -Flas'
 
+
+
+
+#
+alias nb='newsboat'
+
 psMShowTotalMemory() {
     free -h |awk '/^Mem:/ {print $3 " USED / " $2 " TOTAL"}'
 }
