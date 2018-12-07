@@ -42,6 +42,10 @@
   (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
 #+END_SRC
 * Packages and their settings
+** pandoc
+ #+BEGIN_SRC emacs-lisp
+ (use-package ox-pandoc)
+ #+END_SRC
 ** atomic-chrome
  This will let you edit textareas in chrome
  (need to install the chrome extension!).
