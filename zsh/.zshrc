@@ -50,7 +50,7 @@ psMShowTotalMemory() {
 }
 
 alias psM='echo These are the biggest memory hogs!! && psMShowTotalMemory && ps axch -o cmd,%mem --sort=-%mem|head'
-alias psC='echo These are the biggest CPU hogs!!! && ps axch -o cmd,%cpu --sort=-%cpu|head && echo BTW, here is your CPU temperature! && sensors | awk "/^temp1/ {print $2}"| head -1' # needs installed lw_sensors
+alias psC='echo These are the biggest CPU hogs!!! && ps axch -o cmd,%cpu --sort=-%cpu|head && echo BTW, here is your CPU temperature! && sensors' # needs installed lm_sensors
 # FUNCTIONS
 
 s5() {
