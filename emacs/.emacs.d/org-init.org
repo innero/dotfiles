@@ -42,6 +42,10 @@
   (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
 #+END_SRC
 * Packages and their settings
+** git timemachine
+ #+BEGIN_SRC emacs-lisp
+   (use-package git-timemachine)
+ #+END_SRC
 ** pandoc
  #+BEGIN_SRC emacs-lisp
  (use-package ox-pandoc)

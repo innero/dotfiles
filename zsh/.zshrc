@@ -34,7 +34,7 @@ antigen apply
 alias an='source /opt/anaconda/bin/activate root && anaconda-navigator &'
 alias dan='source /opt/anaconda/bin/deactivate root '
 
-
+alias nf='neofetch'
 alias getTime='date +%s'
 alias gl='git log --graph --oneline --decorate'
 alias ls='ls -Flas'
