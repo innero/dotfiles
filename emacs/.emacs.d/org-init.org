@@ -9,7 +9,12 @@
 * General Settings
 #+BEGIN_SRC emacs-lisp
   (setq save-interprogram-paste-before-kill t)
-  (global-linum-mode t)
+  (define-global-minor-mode ntkomata/linum-mode linum-mode
+    (lambda ()
+      (when (not (memq major-mode
+		       (list 'pdf-view-mode)))
+	(linum-mode))))
+  (ntkomata/linum-mode 1)
   (global-hl-line-mode t)
   (menu-bar-mode 1)
   (when (fboundp 'toggle-scroll-bar) (toggle-scroll-bar -1))
@@ -42,6 +47,12 @@
   (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
 #+END_SRC
 * Packages and their settings
+** pdf
+ #+BEGIN_SRC emacs-lisp
+   (use-package pdf-tools
+     :config (pdf-tools-install))
+
+ #+END_SRC
 ** git timemachine
  #+BEGIN_SRC emacs-lisp
    (use-package git-timemachine)
