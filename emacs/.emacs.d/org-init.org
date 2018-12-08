@@ -51,7 +51,7 @@
  #+BEGIN_SRC emacs-lisp
    (use-package pdf-tools
      :config (pdf-tools-install))
-
+   (use-package org-pdfview) ;; So that org mode supports pdf links
  #+END_SRC
 ** git timemachine
  #+BEGIN_SRC emacs-lisp
