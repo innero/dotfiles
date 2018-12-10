@@ -48,8 +48,38 @@
 #+END_SRC
 * Packages and their settings
 ** irony(for c)
+ mini-buffer settings
  #+BEGIN_SRC emacs-lisp
-   (use-package irony)
+   ;; -*- lexical-binding: t -*-
+   (defmacro with-minibuffer-input (form &rest inputs)
+     (declare (indent 1))
+     `(minibuffer-with-setup-hook
+	  (lambda ()
+	    (minibuffer-input-provider ',inputs))
+	,form))
+
+   (defun minibuffer-input-provider (inputs)
+     (fset 'hook (lambda (hook_inputs)
+		   (eval `(remove-hook 'post-command-hook
+				       (lambda () (hook ',hook_inputs))) )
+		   (when hook_inputs
+		     (when (= 0 (minibuffer-depth))
+		       (error "Too many inputs"))
+		     (if (cdr hook_inputs)
+			 (eval `(add-hook 'post-command-hook
+					  (lambda () (hook ',(cdr hook_inputs)))))
+		       (unintern "hook" nil))
+		     (insert (pop hook_inputs))
+		     (exit-minibuffer))))
+     (eval `(add-hook 'post-command-hook
+		      (lambda () (hook ',inputs)))))
+ #+END_SRC
+ install irony
+ #+BEGIN_SRC emacs-lisp
+   (use-package irony
+     :config
+       (with-minibuffer-input
+	   (call-interactively #'irony-install-server) ""))
    (add-hook 'c++-mode-hook 'irony-mode)
    (add-hook 'c-mode-hook 'irony-mode)
    (add-hook 'objc-mode-hook 'irony-mode)
@@ -269,6 +299,7 @@
  #+BEGIN_SRC emacs-lisp
    (use-package company
      :config (add-hook 'after-init-hook 'global-company-mode))
+   (setq company-idle-delay 0)
    "company-tern for javascript"
    (use-package company-tern
      :config (progn
@@ -451,4 +482,3 @@
 
    (add-hook 'image-mode-hook 'scale-image-register-hook)
  #+END_SRC
- 
