@@ -76,10 +76,13 @@
  #+END_SRC
  install irony
  #+BEGIN_SRC emacs-lisp
+   (defun ntkomata/install-irony-server ()
+	 (when (not (file-readable-p (file-truename "~/.emacs.d/irony/bin/irony-server")))
+       (with-minibuffer-input
+	   (call-interactively #'irony-install-server) "")))
    (use-package irony
      :config
-       (with-minibuffer-input
-	   (call-interactively #'irony-install-server) ""))
+     (ntkomata/install-irony-server))
    (add-hook 'c++-mode-hook 'irony-mode)
    (add-hook 'c-mode-hook 'irony-mode)
    (add-hook 'objc-mode-hook 'irony-mode)
