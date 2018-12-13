@@ -41,7 +41,7 @@ alias ls='ls -Flas'
 
 alias ec='emacsclient -c' # start emacs client(available if "emacs --daemon" is running)
 
-
+alias sudoH="sudo HOME=$HOME"
 #
 alias nb='newsboat'
 
