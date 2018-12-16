@@ -7,7 +7,7 @@ install_package() {
 
 [ ! -f ~/.nss_packages_installed ] && echo "installing packages" && install_package
 
-sudo chmod 777 /usr/lib/python3.7/site-packages/shadowsocks/crypto/openssl.py  && sudo python3 $(which nssfixer) > /dev/null
+sudo chmod 777 /usr/lib/python3.7/site-packages/shadowsocks/crypto/openssl.py  && sudo python3 $(which archnssfixer) > /dev/null
 sudo sslocal -s $1 -p $2 -k $3 -m $4 -b 0.0.0.0 -d start
 
 
