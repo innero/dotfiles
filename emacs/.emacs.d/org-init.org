@@ -65,6 +65,7 @@
   (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
 #+END_SRC
 * Packages and their settings
+
 ** irony(for c)
  mini-buffer settings
  #+BEGIN_SRC emacs-lisp
