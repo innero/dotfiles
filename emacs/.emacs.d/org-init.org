@@ -31,6 +31,24 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (global-set-key (kbd "<f12>") 'revert-buffer)
 #+END_SRC
+** MASM Assembly
+#+BEGIN_SRC emacs-lisp
+(defun my-asm-mode-hook ()
+  ;; you can use `comment-dwim' (M-;) for this kind of behaviour anyway
+  (local-unset-key (vector asm-comment-char))
+  ;; (local-unset-key "<return>") ; doesn't work. "RET" in a terminal.  http://emacs.stackexchange.com/questions/13286/how-can-i-stop-the-enter-key-from-triggering-a-completion-in-company-mode
+  (electric-indent-local-mode)  ; toggle off
+;  (setq tab-width 4)
+  (setq indent-tabs-mode nil)
+  ;; asm-mode sets it locally to nil, to "stay closer to the old TAB behaviour".
+  ;; (setq tab-always-indent (default-value 'tab-always-indent))
+
+  (defun asm-calculate-indentation ()
+  0)
+  )
+
+(add-hook 'asm-mode-hook #'my-asm-mode-hook)
+#+END_SRC
 ** open config file
    - init.el ESC-ESC-i 
    - org-init.org ESC-ESC-o
