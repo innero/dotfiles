@@ -31,7 +31,7 @@ antigen apply
 
 
 # aur: anaconda-git
-alias an='source /opt/anaconda/bin/activate root && anaconda-navigator &'
+alias an='source /opt/anaconda/bin/activate root'
 alias dan='source /opt/anaconda/bin/deactivate root '
 
 alias nf='neofetch'
