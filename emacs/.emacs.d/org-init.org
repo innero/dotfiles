@@ -8,6 +8,10 @@
  #+END_SRC
 * General Settings
 #+BEGIN_SRC emacs-lisp
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+  (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling    
+  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+  (setq scroll-step 1) ;; keyboard scroll one line at a time
   (setq save-interprogram-paste-before-kill t)
   (define-global-minor-mode ntkomata/linum-mode linum-mode
     (lambda ()
@@ -30,6 +34,7 @@
   (defalias 'list-buffers 'ibuffer)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (global-set-key (kbd "<f12>") 'revert-buffer)
+p
 #+END_SRC
 ** MASM Assembly
 #+BEGIN_SRC emacs-lisp
