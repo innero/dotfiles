@@ -34,7 +34,6 @@
   (defalias 'list-buffers 'ibuffer)
   (defalias 'yes-or-no-p 'y-or-n-p)
   (global-set-key (kbd "<f12>") 'revert-buffer)
-p
 #+END_SRC
 ** MASM Assembly
 #+BEGIN_SRC emacs-lisp
