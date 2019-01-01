@@ -33,7 +33,7 @@ antigen apply
 # aur: anaconda-git
 alias an='source /opt/anaconda/bin/activate root'
 alias dan='source /opt/anaconda/bin/deactivate root '
-
+alias p='proxychains'
 alias nf='neofetch'
 alias getTime='date +%s'
 alias gl='git log --graph --oneline --decorate'
