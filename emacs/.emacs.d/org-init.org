@@ -144,7 +144,7 @@
  #+BEGIN_SRC emacs-lisp
    (use-package all-the-icons)
    (use-package all-the-icons-dired)
-   (all-the-icons-install-fonts)
+   ;;;to install all the fonts (all-the-icons-install-fonts)
  #+END_SRC
 ** neotree
  #+BEGIN_SRC emacs-lisp
