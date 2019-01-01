@@ -27,7 +27,7 @@ font xft:URWGothic-Book 11
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec terminal
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -59,7 +59,7 @@ bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F1 exec "emacsclient -c ~/.emacs.d/org-init.org &"
 bindsym $mod+F2 exec chromium
 bindsym $mod+F3 exec pcmanfm
-bindsym $mod+F4 exec terminal -e 'ranger'
+bindsym $mod+F4 exec urxvt -e 'ranger'
 bindsym $mod+Shift+F3 exec gksu pcmanfm
 bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill compton
