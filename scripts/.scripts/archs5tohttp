@@ -1,0 +1,2 @@
+# goproxy from github: transforming socks5 to http and socks5
+sudo nohup proxy sps -S socks -T tcp -P 127.0.0.1:1080 -t tcp -p :1081 -h aes-192-cfb -j pass &

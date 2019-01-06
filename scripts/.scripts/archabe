@@ -1,0 +1,5 @@
+#! /bin/bash
+
+sudo pacman -Q v2ray || yes| sudo pacman -S v2ray
+sudo nohup v2ray -config $1 &
+archs5tohttp
