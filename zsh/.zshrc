@@ -37,7 +37,7 @@ alias p='proxychains'
 alias nf='neofetch'
 alias getTime='date +%s'
 alias gl='git log --graph --oneline --decorate'
-alias ls='ls -Flas'
+alias l='ls -Flas'
 
 alias ec='emacsclient -c' # start emacs client(available if "emacs --daemon" is running)
 
