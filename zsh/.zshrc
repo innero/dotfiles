@@ -19,7 +19,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle arzzen/calc.plugin.zsh
 
 # Load the theme.
-antigen theme aussiegeek
+antigen theme ys
 
 # Tell Antigen that you're done.
 antigen apply
