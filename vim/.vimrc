@@ -17,6 +17,8 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'vimwiki/vimwiki'
+Plug 'junegunn/goyo.vim'
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
 set textwidth=100
@@ -33,3 +35,5 @@ let mapleader=" "
 	set wildmode=longest,list,full
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" Goyo plugin makes text more readable when writing prose:
+map <leader>f :Goyo \| set linebreak<CR>
