@@ -70,8 +70,13 @@
   (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
 #+END_SRC
 * Packages and their settings
+** latex
+   #+BEGIN_SRC emacs-lisp
+     (use-package latex-extra
+       :config (add-hook 'LaTeX-mode 'latex-extra-mode))
+   #+END_SRC
 ** libvterm
-  ;;; TODO 
+   ;;; TODO 
 ** Irony(for c)
  mini-buffer settings
  #+BEGIN_SRC emacs-lisp
