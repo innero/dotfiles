@@ -7,8 +7,8 @@ export GOPATH=$HOME/go
 
 
 # aur: anaconda-git
-alias an='source /opt/anaconda/bin/activate root'
-alias dan='source /opt/anaconda/bin/deactivate root '
+alias an='source /opt/anaconda/bin/activate'
+alias dan='source /opt/anaconda/bin/deactivate'
 alias p='proxychains'
 alias nf='neofetch'
 alias getTime='date +%s'
