@@ -1,5 +1,6 @@
 source ~/.antigen.setup.zsh
-
+# vars
+export GOPATH=$HOME/go
 # functions
 
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
