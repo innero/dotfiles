@@ -16,7 +16,6 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 #
 antigen bundle arzzen/calc.plugin.zsh
-
 # Load the theme.
 antigen theme ys
 

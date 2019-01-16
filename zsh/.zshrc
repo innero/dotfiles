@@ -1,3 +1,4 @@
+HTTP_PROXY='http://localhost:1081'
 source ~/.antigen.setup.zsh
 # vars
 export GOPATH=$HOME/go
