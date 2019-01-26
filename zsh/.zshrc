@@ -33,4 +33,4 @@ alias psC='echo These are the biggest CPU hogs!!! && ps axch -o cmd,%cpu --sort=
 s5() {
     export all_proxy="socks5://localhost:1080"
 }
-
+pyenv -v > /dev/null && eval "$(pyenv init -)" # setup pyenv
