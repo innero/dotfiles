@@ -5,7 +5,7 @@ export GOPATH=$HOME/go
 # functions
 
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
-
+alias s='sudo shutdown now' # quick shutdown
 
 # aur: anaconda-git
 alias an='source /opt/anaconda/bin/activate'

@@ -70,6 +70,15 @@
   (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
 #+END_SRC
 * Packages and their settings
+** golang
+   #+BEGIN_SRC emacs-lisp
+     (use-package go-mode)
+     (autoload 'go-mode "go-mode" nil t)
+     (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+     (use-package flycheck
+       :ensure t
+       :init (global-flycheck-mode))
+   #+END_SRC
 ** latex
    #+BEGIN_SRC emacs-lisp
      (use-package latex-extra

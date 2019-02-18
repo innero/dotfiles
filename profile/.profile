@@ -1,3 +1,8 @@
+# fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+
 export GOPATH="${HOME}/go"
 export PATH="${GOPATH}/bin:${HOME}/.scripts.local:${HOME}/.scripts:${PATH}"
 
