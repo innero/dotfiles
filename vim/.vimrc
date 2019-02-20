@@ -16,13 +16,24 @@ endif
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'SirVer/ultisnips'
 Plug 'vimwiki/vimwiki'
+Plug 'honza/vim-snippets'
 Plug 'junegunn/goyo.vim'
 Plug 'jiangmiao/auto-pairs'
 call plug#end()
 
-set textwidth=100
-set colorcolumn=+1
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+" set textwidth=100
+" set colorcolumn=+1
 let mapleader=" "
 
 " Some basics:

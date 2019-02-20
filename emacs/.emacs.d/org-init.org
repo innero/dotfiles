@@ -70,6 +70,10 @@
   (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
 #+END_SRC
 * Packages and their settings
+** markdown
+ #+BEGIN_SRC emacs-lisp
+
+ #+END_SRC
 ** golang
    #+BEGIN_SRC emacs-lisp
      (use-package go-mode)
@@ -234,6 +238,7 @@
  #+END_SRC
 ** org
  #+BEGIN_SRC emacs-lisp
+   (use-package org-tempo)
    (custom-set-variables
     '(org-directory "~/emacs-externals/org")
     '(org-default-notes-file (concat org-directory "/notes.org"))
