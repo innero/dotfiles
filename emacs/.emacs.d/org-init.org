@@ -1,7 +1,7 @@
 #STARTUP: OVERVIEW
 * About
 ** Me
-   [[https://www.ntkomata.com][blog]]
+   [[https://blog.odinfinch.xyz][blog]]
  #+BEGIN_SRC emacs-lisp
        (setq user-mail-address	"odinfinch@protonmail.com"
 	     user-full-name	"Odin Finch")
@@ -36,24 +36,6 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
   (global-set-key (kbd "<f12>") 'revert-buffer)
 #+END_SRC
-** MASM Assembly
-#+BEGIN_SRC emacs-lisp
-(defun my-asm-mode-hook ()
-  ;; you can use `comment-dwim' (M-;) for this kind of behaviour anyway
-  (local-unset-key (vector asm-comment-char))
-  ;; (local-unset-key "<return>") ; doesn't work. "RET" in a terminal.  http://emacs.stackexchange.com/questions/13286/how-can-i-stop-the-enter-key-from-triggering-a-completion-in-company-mode
-  (electric-indent-local-mode)  ; toggle off
-;  (setq tab-width 4)
-  (setq indent-tabs-mode nil)
-  ;; asm-mode sets it locally to nil, to "stay closer to the old TAB behaviour".
-  ;; (setq tab-always-indent (default-value 'tab-always-indent))
-
-  (defun asm-calculate-indentation ()
-  0)
-  )
-
-(add-hook 'asm-mode-hook #'my-asm-mode-hook)
-#+END_SRC
 ** open config file
    - init.el ESC-ESC-i 
    - org-init.org ESC-ESC-o
@@ -70,10 +52,6 @@
   (mapc 'load (file-expand-wildcards "~/.emacs.d/ntkomata-emacs/*.el"))
 #+END_SRC
 * Packages and their settings
-** markdown
- #+BEGIN_SRC emacs-lisp
-
- #+END_SRC
 ** golang
    #+BEGIN_SRC emacs-lisp
      (use-package go-mode)
@@ -83,13 +61,6 @@
        :ensure t
        :init (global-flycheck-mode))
    #+END_SRC
-** latex
-   #+BEGIN_SRC emacs-lisp
-     (use-package latex-extra
-       :config (add-hook 'LaTeX-mode 'latex-extra-mode))
-   #+END_SRC
-** libvterm
-   ;;; TODO 
 ** Irony(for c)
  mini-buffer settings
  #+BEGIN_SRC emacs-lisp
@@ -131,27 +102,9 @@
    (add-hook 'objc-mode-hook 'irony-mode)
    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
  #+END_SRC
-** pdf
- #+BEGIN_SRC emacs-lisp
-   (use-package pdf-tools
-     :config (pdf-tools-install))
-   (use-package org-pdfview) ;; So that org mode supports pdf links
- #+END_SRC
-** git timemachine
- #+BEGIN_SRC emacs-lisp
-   (use-package git-timemachine)
- #+END_SRC
 ** pandoc
  #+BEGIN_SRC emacs-lisp
  (use-package ox-pandoc)
- #+END_SRC
-** atomic-chrome
- This will let you edit textareas in chrome
- (need to install the chrome extension!).
- #+BEGIN_SRC emacs-lisp
-   (use-package atomic-chrome
-     :config (atomic-chrome-start-server))
-   (setq atomic-chrome-buffer-open-style 'frame)
  #+END_SRC
 ** pcre for elisp
  #+BEGIN_SRC emacs-lisp
@@ -159,12 +112,6 @@
      :config
      (pcre-mode)
      )
- #+END_SRC
-** dired
- #+BEGIN_SRC emacs-lisp
-   (use-package all-the-icons)
-   (use-package all-the-icons-dired)
-   ;;;to install all the fonts (all-the-icons-install-fonts)
  #+END_SRC
 ** neotree
  #+BEGIN_SRC emacs-lisp
@@ -177,14 +124,6 @@
  #+BEGIN_SRC emacs-lisp
    (use-package prodigy)
  #+END_SRC
-** projectile
-   #+BEGIN_SRC emacs-lisp
-     (use-package projectile
-       :config (progn
-		 (projectile-mode 1)
-		 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-		 ))
-   #+END_SRC
 ** helm
  #+BEGIN_SRC emacs-lisp
      (use-package helm)
@@ -210,50 +149,7 @@
 	    (dumb-jump-mode)
 	    :ensure)
    #+END_SRC
-** elfeed
- #+BEGIN_SRC emacs-lisp
-
-   (use-package elfeed
-     :config (progn
-	       (global-set-key (kbd "C-x w") 'elfeed)
-	       (setq elfeed-feeds
-		     '("http://nullprogram.com/feed/" 
-		       "http://planet.emacsen.org/atom.xml" 
-		       "http://lukesmith.xyz/rss.xml"))
-	       ))
-
-   (use-package elfeed-org
-     :config (progn
-	       (setq rmh-elfeed-org-files (list "~/emacs-externals/elfeed.org"))
-	       (elfeed-org)
-     ))
- #+END_SRC
-
- #+RESULTS:
- : t
-
-** gnus
- #+BEGIN_SRC emacs-lisp
-   (setq gnus-select-method '(nntp "news.gnus.org"))
- #+END_SRC
-** org
- #+BEGIN_SRC emacs-lisp
-   (use-package org-tempo)
-   (custom-set-variables
-    '(org-directory "~/emacs-externals/org")
-    '(org-default-notes-file (concat org-directory "/notes.org"))
-    )
- #+END_SRC
 ** theme
-bar
-
-#+BEGIN_SRC emacs-lisp
-(use-package doom-modeline
-      :ensure t
-      :defer t
-      :hook (after-init . doom-modeline-init))
-#+END_SRC
-
 theme
 #+BEGIN_SRC emacs-lisp
   (use-package doom-themes)
@@ -266,8 +162,6 @@ theme
   (load-theme 'doom-dracula t)
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
 #+END_SRC
@@ -332,13 +226,6 @@ theme
  #+BEGIN_SRC emacs-lisp
    (use-package undo-tree
      :init (global-undo-tree-mode))
- #+END_SRC
-** reveal.js(ox-reveal)
- #+BEGIN_SRC emacs-lisp
-   (use-package ox-reveal
-     :ensure ox-reveal)
-   (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/latest/")
-   (setq org-reveal-mathjax t)
  #+END_SRC
 ** auto-complete \ company
  auto-complete
@@ -405,10 +292,7 @@ theme
   (use-package org-bullets
     :config
     (add-hook 'org-mode-hook 'org-bullets-mode))
-
-
   (use-package multi-term)
-
   (use-package magit)
   (global-set-key (kbd "C-x g") 'magit-status)
   (use-package zencoding-mode)
