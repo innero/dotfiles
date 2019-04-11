@@ -31,8 +31,8 @@ alias psC='echo These are the biggest CPU hogs!!! && ps axch -o cmd,%cpu --sort=
 # FUNCTIONS
 
 sp() {
-    export https_proxy='localhost:1081'
-    export http_proxy='localhost:1081'    
+    export https_proxy='http://localhost:1081'
+    export http_proxy='http://localhost:1081'    
     export all_proxy="socks5://localhost:1080"
 }
 pyenv -v > /dev/null && eval "$(pyenv init -)" # setup pyenv
