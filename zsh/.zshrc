@@ -3,9 +3,9 @@ source ~/.antigen.setup.zsh
 # vars
 export GOPATH=$HOME/go
 # functions
-
+alias s='shutdown now'
 [ -f $HOME/.zshrc.local ] && source $HOME/.zshrc.local
-alias s='sudo shutdown now' # quick shutdown
+
 
 # aur: anaconda-git
 alias an='source /opt/anaconda/bin/activate'
