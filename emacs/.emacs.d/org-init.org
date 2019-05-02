@@ -317,6 +317,21 @@ theme
    (use-package paradox
      :config (paradox-enable))
  #+END_SRC 
+** Clojure
+   #+BEGIN_SRC emacs-lisp
+     (use-package cider)
+
+   #+END_SRC
+** lisp
+ #+BEGIN_SRC emacs-lisp
+   (use-package "paredit")
+   (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+   (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+   (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+   (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+   (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+   (add-hook 'clojure-mode-hook #'enable-paredit-mode)
+ #+END_SRC
 * Functions
 ** hydra
  #+BEGIN_SRC emacs-lisp
